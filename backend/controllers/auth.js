@@ -54,16 +54,21 @@ if(data.length ===0) return res.status(404).json("user not found ")
 
 //second check the password : 
 
-const isPasswordCorrect = bcrypt.compareSync(req.body.password, req.body.password,data[0].password);
+
+const isPasswordCorrect = bcrypt.compareSync(req.body.password,data[0].password);
 
 if (!isPasswordCorrect) return res.status(400).json("your username ou password are incorrect")
+// install ( npm i jsonwebtoken)
+
 
 const token = jwt.sign({id:data[0].id}, "jwtkey");
 
 //return user information and send this token as cookie 
 const { password, ...other} =data[0]
+// don't forget to install cookie parser (npm i cookie-parser)
 res.cookie("access_token", token,{
     httpOnly: true
+// we setting the cookie by token,
 
 
 }).status(200).json(other)
@@ -72,8 +77,13 @@ res.cookie("access_token", token,{
     
     }
     export const logout =(req, res)=>{
+        // we clearing the cookie by token
+    res.clearCookie("acces_token",{
+        sameSite:"",
+        secure: true
+
+    }).status(200).json("user logged out.")
     
-    
-    }
+    };
     
     

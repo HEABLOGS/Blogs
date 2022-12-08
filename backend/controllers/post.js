@@ -1,7 +1,6 @@
-export const addPost = (req, res) =>{
 
-
-
+export const addPost=(req,res)=>{
     res.json("from controllers")
-    
-    }
+}
+
+
